@@ -3,73 +3,64 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>You Found the Lost Soul — It’s You</title>
+  <title>You found the lost soul — it's you</title>
   <style>
-    :root { --gap: 14px; }
     * { box-sizing: border-box; }
+    :root { --gap: 16px; }
     body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      margin: 0; padding: 24px;
-      min-height: 100svh;
+      margin: 0; padding: 24px; min-height: 100svh;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--gap);
-      background: #0b0b0c; color: #f5f5f7;
+      background: #0b0b0c; color: #f5f5f7; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       text-align: center;
     }
-    h1 {
-      font-size: 1.3rem;
-      font-weight: 500;
-      letter-spacing: 0.03em;
-      margin: 0;
-      max-width: 540px;
-      line-height: 1.4;
+    h1 { margin: 0; font-weight: 500; letter-spacing: .02em; max-width: 560px; line-height: 1.35; }
+    p  { margin: 0; opacity: .85; }
+    .frame {
+      position: relative; width: 100%; max-width: 520px; border-radius: 16px; overflow: hidden;
+      background: #000; aspect-ratio: 3/4;
     }
-    video {
-      width: 100%; max-width: 520px;
-      border-radius: 16px;
-      background: #000;
-      aspect-ratio: 3/4;
-      object-fit: cover;
-      display: none;
+    video { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .overlay {
+      position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
+      padding: 24px; background: linear-gradient(0deg, rgba(0,0,0,.35), rgba(0,0,0,.35));
+      opacity: 0; transition: opacity .6s ease;
     }
-    button, a.button {
-      padding: 12px 20px;
-      border-radius: 999px;
-      border: 1px solid #2a2a2e;
-      background: #1b1b1f;
-      color: #fff;
-      cursor: pointer;
-      font-size: 1rem;
-      text-decoration: none;
+    .overlay.show { opacity: 1; }
+    .overlay p { max-width: 460px; line-height: 1.35; }
+    .overlay .big { font-size: 1.1rem; font-weight: 600; margin-bottom: .5rem; }
+    .controls { display: flex; gap: 12px; }
+    .btn {
+      padding: 12px 18px; border-radius: 999px; border: 1px solid #2a2a2e; background: #1b1b1f;
+      color: #fff; cursor: pointer; text-decoration: none; display: inline-block;
     }
-    button:active, a.button:active {
-      transform: translateY(1px);
-    }
-    p {
-      opacity: 0.8;
-      max-width: 500px;
-      margin: 0;
-    }
-    footer {
-      font-size: 0.85rem;
-      opacity: 0.6;
-      margin-top: 16px;
-    }
+    .btn:active { transform: translateY(1px); }
+    footer { font-size: .85rem; opacity: .65; max-width: 560px; }
   </style>
 </head>
 <body>
   <h1>You found the lost soul — it’s you.</h1>
   <p>When you’re ready, allow your camera to reveal what was never missing.</p>
 
-  <button id="btnStart">Turn on camera</button>
-  <video id="player" autoplay playsinline muted></video>
-  <a href="#" id="btnStop" class="button" style="display:none;">Turn off camera</a>
+  <div class="frame">
+    <video id="player" autoplay playsinline muted></video>
+    <div id="overlay" class="overlay" aria-live="polite">
+      <div>
+        <p class="big">You broke the code. Face the power of technology.</p>
+        <p>You are in charge of how you use it.</p>
+      </div>
+    </div>
+  </div>
 
-  <footer>
-    No data is saved or sent. The camera feed remains only on your device.
-  </footer>
+  <div class="controls">
+    <button id="btnStart" class="btn">Turn on camera</button>
+    <a href="#" id="btnStop" class="btn" style="display:none;">Turn off camera</a>
+  </div>
+
+  <footer>No data is saved or sent. The camera feed stays on your device.</footer>
 
   <script>
     const player = document.getElementById('player');
+    const overlay = document.getElementById('overlay');
     const startBtn = document.getElementById('btnStart');
     const stopBtn = document.getElementById('btnStop');
     let stream;
@@ -79,6 +70,8 @@
         stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: { ideal: "user" } }, audio: false });
         player.srcObject = stream;
         player.style.display = 'block';
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.classList.add('show'), 300);
         startBtn.style.display = 'none';
         stopBtn.style.display = 'inline-block';
       } catch (err) {
@@ -91,6 +84,8 @@
       if (stream) stream.getTracks().forEach(t => t.stop());
       player.srcObject = null;
       player.style.display = 'none';
+      overlay.style.display = 'none';
+      overlay.classList.remove('show');
       startBtn.style.display = 'inline-block';
       stopBtn.style.display = 'none';
     }
