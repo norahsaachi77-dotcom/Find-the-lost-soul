@@ -1,1 +1,85 @@
-<html><head><meta content="text/html; charset=UTF-8" http-equiv="content-type"><style type="text/css">ol{margin:0;padding:0}table td,table th{padding:0}.c1{color:#000000;font-weight:400;text-decoration:none;vertical-align:baseline;font-size:11pt;font-family:"Arial";font-style:normal}.c0{padding-top:0pt;padding-bottom:0pt;line-height:1.15;orphans:2;widows:2;text-align:left}.c2{background-color:#ffffff;max-width:451.4pt;padding:72pt 72pt 72pt 72pt}.c3{height:11pt}.title{padding-top:0pt;color:#000000;font-size:26pt;padding-bottom:3pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}.subtitle{padding-top:0pt;color:#666666;font-size:15pt;padding-bottom:16pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}li{color:#000000;font-size:11pt;font-family:"Arial"}p{margin:0;color:#000000;font-size:11pt;font-family:"Arial"}h1{padding-top:20pt;color:#000000;font-size:20pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h2{padding-top:18pt;color:#000000;font-size:16pt;padding-bottom:6pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h3{padding-top:16pt;color:#434343;font-size:14pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h4{padding-top:14pt;color:#666666;font-size:12pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h5{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;orphans:2;widows:2;text-align:left}h6{padding-top:12pt;color:#666666;font-size:11pt;padding-bottom:4pt;font-family:"Arial";line-height:1.15;page-break-after:avoid;font-style:italic;orphans:2;widows:2;text-align:left}</style></head><body class="c2 doc-content"><p class="c0"><span class="c1">&lt;!doctype html&gt;</span></p><p class="c0"><span class="c1">&lt;html lang=&quot;sv&quot;&gt;</span></p><p class="c0"><span class="c1">&lt;head&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;meta charset=&quot;utf-8&quot; /&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot; /&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;title&gt;Hitta den saknade (du)&lt;/title&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;style&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; body {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; margin: 0; padding: 24px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; display: flex; flex-direction: column; align-items: center; gap: 12px;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; background: #0b0b0c; color: #f5f5f7;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; h1 { font-size: 1.3rem; margin: 0; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; video { width: 90%; max-width: 400px; border-radius: 16px; background: #000; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; button { padding: 10px 18px; border-radius: 999px; border: none; background: #1b1b1f; color: #fff; cursor: pointer; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; p { font-size: .9rem; opacity: .8; text-align: center; max-width: 400px; }</span></p><p class="c0"><span class="c1">&nbsp; &lt;/style&gt;</span></p><p class="c0"><span class="c1">&lt;/head&gt;</span></p><p class="c0"><span class="c1">&lt;body&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;h1&gt;Hitta den saknade &mdash; kanske du.&lt;/h1&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;p&gt;Tryck &ldquo;Till&aring;t&rdquo; n&auml;r mobilen fr&aring;gar om kamera. Inget sparas eller skickas.&lt;/p&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;video id=&quot;player&quot; autoplay playsinline muted&gt;&lt;/video&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;div&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &lt;button id=&quot;btnFront&quot;&gt;&Ouml;ppna selfiekameran&lt;/button&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &lt;button id=&quot;btnBack&quot;&gt;&Ouml;ppna bakkameran&lt;/button&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;/div&gt;</span></p><p class="c0"><span class="c1">&nbsp; &lt;p id=&quot;status&quot;&gt;Redo.&lt;/p&gt;</span></p><p class="c0 c3"><span class="c1"></span></p><p class="c0"><span class="c1">&nbsp; &lt;script&gt;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; const statusEl = document.getElementById(&#39;status&#39;);</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; const player = document.getElementById(&#39;player&#39;);</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; async function openCamera(constraints) {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; statusEl.textContent = &#39;Beg&auml;r kameratillst&aring;nd&hellip;&#39;;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; try {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; &nbsp; const stream = await navigator.mediaDevices.getUserMedia(constraints);</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; &nbsp; player.srcObject = stream;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; &nbsp; statusEl.textContent = &#39;Kameran &auml;r ig&aring;ng.&#39;;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; } catch (err) {</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; &nbsp; statusEl.textContent = &#39;Kunde inte &ouml;ppna kameran: &#39; + err.name;</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; }</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; document.getElementById(&#39;btnFront&#39;).onclick = () =&gt; openCamera({ video: { facingMode: { ideal: &quot;user&quot; } } });</span></p><p class="c0"><span class="c1">&nbsp; &nbsp; document.getElementById(&#39;btnBack&#39;).onclick &nbsp;= () =&gt; openCamera({ video: { facingMode: { ideal: &quot;environment&quot; } } });</span></p><p class="c0"><span class="c1">&nbsp; &lt;/script&gt;</span></p><p class="c0"><span class="c1">&lt;/body&gt;</span></p><p class="c0"><span class="c1">&lt;/html&gt;</span></p><p class="c0 c3"><span class="c1"></span></p><p class="c0 c3"><span class="c1"></span></p></body></html>
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Find the Lost Soul</title>
+  <style>
+    :root { --gap: 14px; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      margin: 0; padding: 24px;
+      min-height: 100svh; display: flex; flex-direction: column; align-items: center; gap: var(--gap);
+      background: #0b0b0c; color: #f5f5f7;
+    }
+    h1 { font-size: 1.25rem; margin: 0; line-height: 1.25; text-align: center; }
+    p  { margin: 0; opacity: .9; text-align: center; max-width: 520px; }
+    .card { border: 1px solid #2a2a2e; border-radius: 16px; padding: 16px; background: #131316; width: 100%; max-width: 560px; }
+    video {
+      width: 100%; max-width: 560px; border-radius: 16px; background: #000;
+      aspect-ratio: 3/4; object-fit: cover;
+    }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    button {
+      padding: 12px 16px; border-radius: 999px; border: 1px solid #2a2a2e;
+      background: #1b1b1f; color: #fff; cursor: pointer;
+    }
+    button:active { transform: translateY(1px); }
+    #status { font-size: .95rem; opacity: .9 }
+    .small { font-size: .85rem; opacity: .75 }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Find the Lost Soul — kanske du.</h1>
+    <p>Tryck “Tillåt” när mobilen frågar om kamera. Inget sparas eller skickas.</p>
+  </div>
+
+  <video id="player" autoplay playsinline muted></video>
+
+  <div class="row">
+    <button id="btnFront">Öppna selfiekameran</button>
+    <button id="btnBack">Öppna bakkameran</button>
+    <button id="btnStop">Stäng kameran</button>
+  </div>
+
+  <p id="status">Redo.</p>
+
+  <div class="card small">
+    <p><strong>Integritet:</strong> Kamerabilden visas endast lokalt i din webbläsare. Ingen inspelning. Ingen uppladdning.</p>
+    <p>Om inget händer: öppna länken i din vanliga webbläsare (Safari/Chrome) istället för en in-app-skanner.</p>
+  </div>
+
+  <script>
+    const statusEl = document.getElementById('status');
+    const player = document.getElementById('player');
+    let stream;
+
+    async function openCamera(constraints) {
+      statusEl.textContent = 'Begär kameratillstånd…';
+      try {
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+        player.srcObject = stream;
+        statusEl.textContent = 'Kameran är igång. ✨';
+      } catch (err) {
+        console.error(err);
+        statusEl.textContent = 'Kunde inte öppna kameran: ' + (err && err.name ? err.name : err);
+      }
+    }
+
+    function stopCamera() {
+      if (stream) stream.getTracks().forEach(t => t.stop());
+      player.srcObject = null;
+      statusEl.textContent = 'Kameran stoppad.';
+    }
+
+    document.getElementById('btnFront').onclick = () => openCamera({ video: { facingMode: { ideal: "user" } }, audio: false });
+    document.getElementById('btnBack').onclick  = () => openCamera({ video: { facingMode: { ideal: "environment" } }, audio: false });
+    document.getElementById('btnStop').onclick  = stopCamera;
+
+    // Du kan försöka starta frontkameran automatiskt:
+    // openCamera({ video: { facingMode: { ideal: "user" } }, audio: false });
+  </script>
+</body>
+</html>
