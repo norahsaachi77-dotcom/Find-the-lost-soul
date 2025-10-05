@@ -19,45 +19,45 @@
       position: relative; width: 100%; max-width: 520px;
       border-radius: 16px; overflow: hidden; background: #000; aspect-ratio: 3/4;
     }
-    video { width: 100%; height: 100%; object-fit: cover; display: none; }
+    video {
+      width: 100%; height: 100%; object-fit: cover; display: none;
+      transform: scaleX(-1); /* mirror like a real reflection */
+    }
 
-    /* Top banner text (always visible while camera is on) */
+    /* Top banner (always visible) */
     .banner {
-      position: absolute; left: 0; right: 0; top: 0; padding: 14px 16px;
-      background: linear-gradient(to bottom, rgba(0,0,0,.6), rgba(0,0,0,0) 70%);
-      color: #fff; font-weight: 600; letter-spacing: .02em; line-height: 1.35;
-      text-wrap: balance; display: none; pointer-events: none;
+      position: absolute; left: 0; right: 0; top: 0;
+      padding: 14px 16px 22px 16px;
+      background: linear-gradient(to bottom, rgba(0,0,0,.65), rgba(0,0,0,0) 70%);
+      color: #fff; letter-spacing: .02em; line-height: 1.35;
+      text-wrap: balance; pointer-events: none;
       text-shadow: 0 1px 2px rgba(0,0,0,.6);
     }
+    .banner .strong { font-weight: 700; }
+    .banner .sub    { font-weight: 500; opacity: .95; }
 
-    /* Ghost overlay line (fades in after start) */
+    /* Ghost line that appears AFTER start, also at top */
     .ghost {
-      position: absolute; inset: 0; display: none; align-items: center; justify-content: center;
-      padding: 24px; pointer-events: none; text-wrap: balance;
+      margin-top: 6px;
+      font-weight: 500; opacity: 0; transform: translateY(-4px);
     }
-    .ghost p {
-      margin: 0; max-width: 460px; line-height: 1.35; color: #fff;
-      opacity: 0; transform: translateY(6px);
-      text-shadow: 0 1px 2px rgba(0,0,0,.6);
-    }
-    .ghost.show p { animation: ghostIn 3.5s ease-out forwards; animation-delay: 1.2s; }
+    .ghost.show { animation: ghostIn 3s ease-out forwards; animation-delay: .9s; }
+
     @keyframes ghostIn {
-      0%   { opacity: 0; transform: translateY(6px); }
-      30%  { opacity: .35; }
+      0%   { opacity: 0; transform: translateY(-4px); }
+      35%  { opacity: .35; }
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Controls + footer */
-    .controls { display: flex; gap: 12px; margin-top: 10px; }
+    .controls { display: flex; gap: 12px; margin-top: 12px; }
     .btn {
       padding: 12px 18px; border-radius: 999px; border: 1px solid #2a2a2e; background: #1b1b1f;
       color: #fff; cursor: pointer; text-decoration: none; display: inline-block;
     }
     .btn:active { transform: translateY(1px); }
     footer { font-size: .85rem; opacity: .65; max-width: 560px; }
-
     @media (prefers-reduced-motion: reduce) {
-      .ghost.show p { animation: none; opacity: 1; transform: none; }
+      .ghost.show { animation: none; opacity: 1; transform: none; }
     }
   </style>
 </head>
@@ -66,14 +66,11 @@
   <div class="frame">
     <video id="player" autoplay playsinline muted></video>
 
-    <!-- top-of-camera banner -->
-    <div id="banner" class="banner">
-      You broke the code. Face the power of technology.
-    </div>
-
-    <!-- ghostly line that fades in over video -->
-    <div id="ghost" class="ghost">
-      <p>You are in charge of how you use it.</p>
+    <!-- Top-of-frame text shown before (and after) start -->
+    <div class="banner">
+      <div class="strong">You broke the code!!!</div>
+      <div class="sub">Face the power of technology.</div>
+      <div id="ghostLine" class="ghost">You are in charge of how you use it.</div>
     </div>
   </div>
 
@@ -85,11 +82,10 @@
   <footer>No data is saved or sent. The camera feed stays on your device.</footer>
 
   <script>
-    const player   = document.getElementById('player');
-    const banner   = document.getElementById('banner');
-    const ghost    = document.getElementById('ghost');
-    const startBtn = document.getElementById('btnStart');
-    const stopBtn  = document.getElementById('btnStop');
+    const player    = document.getElementById('player');
+    const ghostLine = document.getElementById('ghostLine');
+    const startBtn  = document.getElementById('btnStart');
+    const stopBtn   = document.getElementById('btnStop');
     let stream;
 
     async function openCamera() {
@@ -99,10 +95,8 @@
         });
         player.srcObject = stream;
         player.style.display = 'block';
-        banner.style.display = 'block';
-        ghost.style.display  = 'flex';
-        // trigger ghost fade-in
-        requestAnimationFrame(() => ghost.classList.add('show'));
+        // reveal ghost line at the top after start
+        ghostLine.classList.add('show');
         startBtn.style.display = 'none';
         stopBtn.style.display  = 'inline-block';
       } catch (err) {
@@ -115,9 +109,7 @@
       if (stream) stream.getTracks().forEach(t => t.stop());
       player.srcObject = null;
       player.style.display = 'none';
-      banner.style.display = 'none';
-      ghost.classList.remove('show');
-      ghost.style.display = 'none';
+      ghostLine.classList.remove('show');
       startBtn.style.display = 'inline-block';
       stopBtn.style.display  = 'none';
     }
